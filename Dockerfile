@@ -1,4 +1,4 @@
-FROM ubuntu:16.04
+FROM ubuntu:18.04
 MAINTAINER Elico Corp <webmaster@elico-corp.com>
 
 # Define build constants
@@ -19,11 +19,6 @@ RUN apt update \
 ADD sources/apt.txt /opt/sources/apt.txt
 RUN apt update \
   && awk '! /^ *(#|$)/' /opt/sources/apt.txt | xargs -r apt install -yq
-
-# Install PostgreSQL 10
-RUN echo 'deb http://apt.postgresql.org/pub/repos/apt/ xenial-pgdg main' >> /etc/apt/sources.list.d/pgdg.list \
-  && curl -so - https://www.postgresql.org/media/keys/ACCC4CF8.asc | apt-key add - \
-  && apt update && apt install -yq postgresql-client-10
 
 # Create the odoo user
 RUN useradd --create-home --home-dir /opt/odoo --no-log-init odoo
@@ -54,7 +49,7 @@ ADD sources/pip.txt /opt/sources/pip.txt
 RUN pip3 install -r /opt/sources/pip.txt
 
 # Install wkhtmltopdf based on QT5
-ADD https://github.com/wkhtmltopdf/wkhtmltopdf/releases/download/0.12.5/wkhtmltox_0.12.5-1.xenial_amd64.deb \
+ADD https://github.com/wkhtmltopdf/wkhtmltopdf/releases/download/0.12.5/wkhtmltox_0.12.5-1.bionic_amd64.deb \
   /opt/sources/wkhtmltox.deb
 RUN apt update \
   && apt install -yq xfonts-base xfonts-75dpi \
