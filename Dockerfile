@@ -1,5 +1,5 @@
-FROM ubuntu:16.04
-MAINTAINER Elico Corp <webmaster@elico-corp.com>
+FROM ubuntu:18.04
+MAINTAINER Ruter Lü <webmaster@ruterly.com>
 
 # Define build constants
 ENV GIT_BRANCH=10.0 \
@@ -8,6 +8,9 @@ ENV GIT_BRANCH=10.0 \
 
 # Set timezone to UTC
 RUN ln -sf /usr/share/zoneinfo/Etc/UTC /etc/localtime
+
+# Add deb to sources.list
+RUN echo 'deb http://security.ubuntu.com/ubuntu xenial-security main' >> /etc/apt/sources.list
 
 # Generate locales
 RUN apt update \
@@ -49,8 +52,7 @@ ADD sources/pip.txt /opt/sources/pip.txt
 RUN pip install -r /opt/sources/pip.txt
 
 # Install LESS
-RUN npm install -g less@2.7.3 less-plugin-clean-css@1.5.1 \
-  && ln -s /usr/bin/nodejs /usr/bin/node
+RUN npm install -g less@2.7.3 less-plugin-clean-css@1.5.1
 
 # Install wkhtmltopdf based on QT5
 # Warning: do not use latest version (0.12.2.1) because it causes the footer
