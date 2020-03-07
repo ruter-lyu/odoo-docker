@@ -3,12 +3,14 @@ git
 libjpeg8-dev
 libldap2-dev
 libsasl2-dev
-libssl-dev
+libssl1.0-dev
 libxml2-dev
 libxrender1
 libxslt1-dev
+libpng12-0
 node-less
-nodejs
+nodejs-dev
+node-gyp
 npm
 postgresql-client-10
 python-dev
